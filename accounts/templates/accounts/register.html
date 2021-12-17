@@ -13,19 +13,19 @@
             {% csrf_token %}
             <div class="form-group">
                 <label>Nome:</label>
-                <input type="text" name="name" class="form-control">
+                <input type="text" name="name" value="{{request.POST.name}}" class="form-control">
             </div>
             <div class="form-group">
                 <label>E-Mail:</label>
-                <input type="email" name="email" class="form-control">
+                <input type="email" name="email" value="{{request.POST.email}}" class="form-control">
             </div>
             <div class="form-group">
                 <label>Usuário:</label>
-                <input type="text" name="user" class="form-control">
+                <input type="text" name="user" value="{{request.POST.user}}" class="form-control">
             </div>
             <div class="form-group">
                 <label>Senha:</label>
-                <input type="password" name="password" class="form-control">
+                <input type="password" name="password" value="{{request.POST.password}}" class="form-control">
             </div>
             <div class="form-group">
                 <label>Confirmar Senha:</label>
