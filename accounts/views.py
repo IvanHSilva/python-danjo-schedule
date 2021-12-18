@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 def emptyfield(request, field, title):
     # messages.info(request, field)
@@ -10,10 +11,23 @@ def emptyfield(request, field, title):
         return render(request, 'accounts/register.html')
 
 def login(request):
-    return render(request, 'accounts/login.html')
+    if request.method != 'POST':
+        return render(request, 'accounts/login.html')
+    user = request.POST.get('user')
+    password = request.POST.get('password')
+    userlog = auth.authenticate(request, username=user, password=password)
+    if not userlog:
+        messages.error(request, 'Usuário ou senha inválidos!')
+        return render(request, 'accounts/login.html')
+    else:
+        auth.login(request, userlog)
+        messages.success(request, 'Usuário logado com sucesso!')
+        return redirect('dashboard')
 
 def logout(request):
-    return render(request, 'accounts/logout.html')
+    auth.logout(request)
+    return redirect('login')
+    # return render(request, 'accounts/logout.html')
 
 def register(request):
     # if request.method != 'post':
@@ -63,5 +77,6 @@ def register(request):
     newuser.save()
     return redirect(login)
 
+@login_required(redirect_field_name='login')
 def dashboard(request):
     return render(request, 'accounts/dashboard.html')

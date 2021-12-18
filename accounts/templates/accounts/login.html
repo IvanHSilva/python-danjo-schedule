@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-{% include 'partials/_messages.html' %}
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +7,20 @@
 </head>
 <body>
     {% block content %}
-        Login
+        <h1 class="mt-3 mb-3">Cadastro</h1>
+        <form method="post" action="{% url 'login' %}">
+            {% include 'partials/_messages.html' %}
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Usuário:</label>
+                <input type="text" name="user" value="{{request.POST.user}}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Senha:</label>
+                <input type="password" name="password" value="{{request.POST.password}}" class="form-control">
+            </div>
+            <button type="submit" name="btnsave" class="btn btn-primary">Login</button>
+        </form>
     {% endblock %}
 </body>
 </html>
