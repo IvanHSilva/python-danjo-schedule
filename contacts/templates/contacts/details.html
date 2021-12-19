@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-{% extends 'base.html' %}
 <html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Detalhes</title>
-</head>
+{% extends 'base.html' %}
+{%block title%}Detalhes {{contact.name}}{%endblock%}
 <body>
     {%block content%}
         <h1 class="mt-5">{{ contact.name }} {{ contact.midname }}</h1>
